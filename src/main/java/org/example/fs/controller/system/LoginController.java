@@ -1,7 +1,8 @@
-package org.example.fs.controller.login;
+package org.example.fs.controller.system;
 
 
 import org.example.fs.domain.dto.LoginDto;
+import org.example.fs.domain.vo.UniformResult;
 import org.example.fs.service.login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +16,9 @@ public class LoginController {
     private LoginService loginServcie;
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginDto user){
-        return loginServcie.login(user);
+    public UniformResult<String> login(@RequestBody LoginDto user){
+
+        String login = loginServcie.login(user);
+        return UniformResult.success(login);
     }
 }
