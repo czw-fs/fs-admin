@@ -8,10 +8,12 @@ spring:
     username: root
     password: 360typ760
 
-
-
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/*.xml
+
+token:
+  secret: 'friend'
+  expireTime: 30

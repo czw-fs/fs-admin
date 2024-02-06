@@ -8,24 +8,35 @@ import org.example.fs.domain.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginUser implements UserDetails {
+public class LoginUser implements UserDetails , Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     //用户信息
     private User user;
 
     //用户权限
-    private Set<GrantedAuthority> permission;
+    private Set<String> permission;
 
+    //用户对应的缓存信息的key
+    private String uuid;
+
+
+    public LoginUser(User user, Set<String> permission) {
+        this.user = user;
+        this.permission = permission;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.permission;
+        return null;
     }
 
     @Override

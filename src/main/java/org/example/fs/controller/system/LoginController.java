@@ -16,9 +16,8 @@ public class LoginController {
     private LoginService loginServcie;
 
     @PostMapping("/login")
-    public UniformResult<String> login(@RequestBody LoginDto user){
-
-        String login = loginServcie.login(user);
-        return UniformResult.success(login);
+    public UniformResult<String> login(@RequestBody LoginDto user) {
+        String token = loginServcie.login(user);
+        return UniformResult.success(token);
     }
 }
