@@ -21,11 +21,6 @@ public class SecurityUtils {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
-    public static Boolean isAdmin(){
-        Long id = getLoginUser().getUser().getId();
-        return id != null && 1L == id;
-    }
-
     public static Long getUserId() {
         return getLoginUser().getUser().getId();
     }

@@ -7,11 +7,18 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 360typ760
-
-
+  redis:
+    host: 81.70.17.121
+    port: 6379
+    password: 360typ760
 
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/*.xml
+
+token:
+  secret: 'friend'
+  expireTime: 30
+
