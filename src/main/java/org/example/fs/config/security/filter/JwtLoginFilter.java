@@ -51,6 +51,7 @@ public class JwtLoginFilter extends OncePerRequestFilter {
             // todo token过期，请重新登录
             String json = new String(JSONObject.toJSONString(UniformResult.fail(401, "登录过期", null)));
             response.setContentType("application/json;charset=UTF-8");
+//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.getWriter().print(json);
             return;
         }

@@ -36,7 +36,7 @@ public class UniformResult<T> {
     }
 
     public static<T> UniformResult<T> fail(Integer code ,String msg,T data) {
-        return new UniformResult<T>(500,msg,data);
+        return new UniformResult<T>(code,msg,data);
     }
 
     public static<T> UniformResult<T> fail(String msg,T data) {
