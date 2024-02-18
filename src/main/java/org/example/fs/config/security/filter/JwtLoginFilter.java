@@ -1,7 +1,9 @@
 package org.example.fs.config.security.filter;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.example.fs.domain.dto.LoginUser;
-import org.example.fs.domain.entity.User;
+import org.example.fs.domain.vo.UniformResult;
 import org.example.fs.utils.RedisCache;
 import org.example.fs.utils.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,17 +12,19 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.security.auth.login.LoginException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 判断用户是否登录的过滤器
  */
 @Component
-public class LoginFilter extends OncePerRequestFilter {
+public class JwtLoginFilter extends OncePerRequestFilter {
 
     @Autowired
     private TokenService tokenService;
@@ -29,7 +33,7 @@ public class LoginFilter extends OncePerRequestFilter {
     private RedisCache redisCache;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException,RuntimeException {
         // todo 获取登录token
         String token = request.getHeader("token");
 
@@ -44,7 +48,10 @@ public class LoginFilter extends OncePerRequestFilter {
         LoginUser loginUser = (LoginUser)redisCache.getCacheObject(UserUuId);
 
         if(loginUser == null){
-            filterChain.doFilter(request, response);
+            // todo token过期，请重新登录
+            String json = new String(JSONObject.toJSONString(UniformResult.fail(401, "登录过期", null)));
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().print(json);
             return;
         }
 

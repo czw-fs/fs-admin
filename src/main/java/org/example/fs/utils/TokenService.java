@@ -45,6 +45,7 @@ public class TokenService {
     public String createToken(LoginUser loginUser){
 
         String uuid = UUID.randomUUID().toString();
+        loginUser.setUuid(uuid);
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("uuid", uuid);
