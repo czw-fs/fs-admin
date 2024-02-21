@@ -1,1 +1,1 @@
-springboot + springsecurity + jwt + redis 实现的登录系统
+springboot + springsecurity + jwt + redis 实现的登录脚手架
